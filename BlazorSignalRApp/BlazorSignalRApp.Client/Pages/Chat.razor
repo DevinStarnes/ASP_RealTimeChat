@@ -12,6 +12,7 @@
         <input class="form-control" @bind="userInput" placeholder="Type your name" />
     </label>
 </div>
+<br />
 <div class="form-group">
     <label>
         Message:
@@ -54,6 +55,9 @@
 
     private async Task Send()
     {
+        if (string.IsNullOrEmpty(userInput) || string.IsNullOrEmpty(messageInput))
+            return ;
+
         if (hubConnection is not null)
         {
             await hubConnection.SendAsync("SendMessage", userInput, messageInput);
